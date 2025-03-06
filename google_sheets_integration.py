@@ -54,10 +54,10 @@ def log_meal(date, meal_type, food_items, calories, protein, carbs, fat, hydrati
     print("Meal logged successfully!")
 
 # Function to log a workout
-def log_workout(date, workout_type, duration, calories_burned, weight_lifted, workout_notes):
-    print(f"Attempting to log workout: {workout_type} on {date}")
+def log_workout(date, workout_type, exercise_name, sets_reps_weight, duration, calories_burned, workout_notes):
+    print(f"Attempting to log workout: {exercise_name} ({workout_type}) on {date}")
     fitness_daily_tracking_sheet.append_row([
-        date, workout_type, duration, calories_burned, weight_lifted, workout_notes
+        date, workout_type, exercise_name, sets_reps_weight, duration, calories_burned, workout_notes
     ])
     print("Workout logged successfully!")
 
