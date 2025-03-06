@@ -47,36 +47,79 @@ fitness_weekly_tracking_sheet = fitness_spreadsheet.worksheet('Weekly Tracking')
 
 # Function to log a meal
 def log_meal(date, meal_type, food_items, calories, protein, carbs, fat, hydration, diet_notes, rating):
-    print("Attempting to write to Daily Tracking sheet...")
-    try:
-        daily_tracking_sheet.append_row([
-            date, meal_type, food_items, calories, protein, carbs, fat, hydration, diet_notes, rating
-        ])
-        print("Successfully logged meal to Daily Tracking sheet.")
-    except Exception as e:
-        print(f"Failed to write to Daily Tracking sheet: {e}")
+    print(f"Attempting to log meal: {meal_type} on {date}")
+    daily_tracking_sheet.append_row([
+        date, meal_type, food_items, calories, protein, carbs, fat, hydration, diet_notes, rating
+    ])
+    print("Meal logged successfully!")
 
 # Function to log a workout
 def log_workout(date, workout_type, duration, calories_burned, weight_lifted, workout_notes):
-    print("Attempting to write to Fitness Daily Tracking sheet...")
-    try:
-        fitness_daily_tracking_sheet.append_row([
-            date, workout_type, duration, calories_burned, weight_lifted, workout_notes
-        ])
-        print("Successfully logged workout to Fitness Daily Tracking sheet.")
-    except Exception as e:
-        print(f"Failed to write to Fitness Daily Tracking sheet: {e}")
+    print(f"Attempting to log workout: {workout_type} on {date}")
+    fitness_daily_tracking_sheet.append_row([
+        date, workout_type, duration, calories_burned, weight_lifted, workout_notes
+    ])
+    print("Workout logged successfully!")
 
-# Verbose logging for inventory and grocery list updates
+# Function to get current daily and weekly tracking data
+def get_daily_tracking():
+    print("Retrieving daily tracking data")
+    return daily_tracking_sheet.get_all_records()
+
+def get_weekly_tracking():
+    print("Retrieving weekly tracking data")
+    return weekly_tracking_sheet.get_all_records()
+
+def get_fitness_daily_tracking():
+    print("Retrieving fitness daily tracking data")
+    return fitness_daily_tracking_sheet.get_all_records()
+
+def get_fitness_weekly_tracking():
+    print("Retrieving fitness weekly tracking data")
+    return fitness_weekly_tracking_sheet.get_all_records()
+
+# Function to get inventory and grocery list
+def get_inventory():
+    print("Retrieving inventory data")
+    return inventory_sheet.get_all_records()
+
+def get_grocery_list():
+    print("Retrieving grocery list data")
+    return grocery_list_sheet.get_all_records()
+
+# Functions to add and remove items from grocery and inventory lists
 def add_grocery_item(item_name, quantity, category, priority, purchased='No'):
-    print(f"Adding grocery item: {item_name}, Quantity: {quantity}, Category: {category}, Priority: {priority}")
-    try:
-        grocery_list_sheet.append_row([item_name, quantity, category, priority, purchased])
-        print(f"Successfully added {item_name} to Grocery List.")
-    except Exception as e:
-        print(f"Failed to add grocery item: {e}")
+    print(f"Adding grocery item: {item_name}")
+    grocery_list_sheet.append_row([item_name, quantity, category, priority, purchased])
+    print(f"Grocery item '{item_name}' added successfully")
+
+def remove_grocery_item(item_name):
+    print(f"Attempting to remove grocery item: {item_name}")
+    cell = grocery_list_sheet.find(item_name)
+    if cell:
+        grocery_list_sheet.delete_rows(cell.row)
+        print(f"Successfully removed grocery item: {item_name}")
+    else:
+        print(f"Grocery item '{item_name}' not found.")
+
+def add_inventory_item(item_name, quantity, category, expiration_date=None):
+    print(f"Adding inventory item: {item_name}")
+    inventory_sheet.append_row([item_name, quantity, category, expiration_date or ''])
+    print(f"Inventory item '{item_name}' added successfully")
+
+def remove_inventory_item(item_name):
+    print(f"Attempting to remove inventory item: {item_name}")
+    cell = inventory_sheet.find(item_name)
+    if cell:
+        inventory_sheet.delete_rows(cell.row)
+        print(f"Successfully removed inventory item: {item_name}")
+    else:
+        print(f"Inventory item '{item_name}' not found.")
 
 print("Google Sheets integration script started.")
+
 print("Loaded Google Sheets credentials successfully.")
+
 print("Writing data to Google Sheets...")
+
 print("Data written successfully!")
