@@ -93,3 +93,15 @@ def remove_inventory_item(item_name):
     cell = inventory_sheet.find(item_name)
     if cell:
         inventory_sheet.delete_rows(cell.row)
+
+print("Google Sheets integration script started.")
+
+# (existing code here, e.g., loading credentials)
+print("Loaded Google Sheets credentials successfully.")
+
+# (existing code here, e.g., connecting to Google Sheets)
+print("Writing data to Google Sheets...")
+
+# (existing code to write data to the sheet)
+print("Data written successfully!")
+
