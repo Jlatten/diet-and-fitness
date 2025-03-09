@@ -158,8 +158,25 @@ def log_workout_route():
         logger.error(f"Workout logging error: {str(e)}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-# Remaining routes follow the same pattern...
-# [Other routes omitted for brevity but follow the same structure]
+@app.route('/daily-tracking', methods=['GET'])
+@auth.login_required
+def get_daily_tracking_route():
+    try:
+        data = get_daily_tracking()
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Daily tracking error: {str(e)}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/weekly-tracking', methods=['GET'])
+@auth.login_required
+def get_weekly_tracking_route():
+    try:
+        data = get_weekly_tracking()
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Weekly tracking error: {str(e)}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

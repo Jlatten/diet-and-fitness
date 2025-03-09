@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Fitness & Nutrition API
+  title: Fitness Tracker API
   version: 1.0.0
 servers:
   - url: https://damp-spire-30962-30b3ab2de5a2.herokuapp.com
@@ -12,21 +12,17 @@ paths:
         - name: item_name
           in: query
           required: true
-          schema:
-            type: string
+          schema: {type: string}
         - name: quantity
           in: query
-          schema:
-            type: integer
+          required: true
+          schema: {type: integer}
         - name: category
           in: query
-          schema:
-            type: string
+          schema: {type: string}
         - name: priority
           in: query
-          schema:
-            type: string
-            enum: [High, Medium, Low]
+          schema: {type: string, enum: [High, Medium, Low]}
       security:
         - basicAuth: []
       responses:
@@ -37,12 +33,112 @@ paths:
               schema:
                 type: object
                 properties:
-                  status:
-                    type: string
-                  message:
-                    type: string
+                  status: {type: string}
+                  message: {type: string}
 
-  # Add other endpoints following the same pattern
+  /remove-grocery-item:
+    get:
+      summary: Remove item from grocery list
+      parameters:
+        - name: item_name
+          in: query
+          required: true
+          schema: {type: string}
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Item removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string}
+                  message: {type: string}
+
+  /log-meal:
+    get:
+      summary: Log a meal
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema: {type: string, format: date}
+        - name: meal_type
+          in: query
+          required: true
+          schema: {type: string}
+        - name: food_items
+          in: query
+          required: true
+          schema: {type: string}
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Meal logged
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string}
+                  message: {type: string}
+
+  /add-inventory-item:
+    get:
+      summary: Add item to inventory
+      parameters:
+        - name: item_name
+          in: query
+          required: true
+          schema: {type: string}
+        - name: quantity
+          in: query
+          required: true
+          schema: {type: integer}
+        - name: category
+          in: query
+          schema: {type: string}
+        - name: expiration_date
+          in: query
+          schema: {type: string, format: date}
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Item added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string}
+                  message: {type: string}
+
+  /remove-inventory-item:
+    get:
+      summary: Remove item from inventory
+      parameters:
+        - name: item_name
+          in: query
+          required: true
+          schema: {type: string}
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Item removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string}
+                  message: {type: string}
+
+  # Add other endpoints following the same pattern...
 
 components:
   securitySchemes:
