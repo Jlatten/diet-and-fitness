@@ -29,11 +29,11 @@ client = gspread.authorize(creds)
 
 # Connect to Google Sheets
 diet_spreadsheet = client.open_by_url(
-    'https://docs.google.com/spreadsheets/d/1PDpRYdsZzf9gW-3r-PYHJtHncvKPezNAquAmBwXmD0E/edit?usp=sharing'
+    'https://docs.google.com/spreadsheets/d/1PDpRYdsZzf9gW-3r-PYHJtHncvKPezNAquAmBwXmD0E/edit'
 )
 
 fitness_spreadsheet = client.open_by_url(
-    'https://docs.google.com/spreadsheets/d/1Os9BBhujsM1N3HIGjn73D1auRtBk4_VbWyxWEAVkng0/edit?usp=sharing'
+    'https://docs.google.com/spreadsheets/d/1Os9BBhujsM1N3HIGjn73D1auRtBk4_VbWyxWEAVkng0/edit'
 )
 
 # Access specific sheets
@@ -62,6 +62,7 @@ def log_workout(date, workout_type, exercise_name, sets_reps_weight, duration, c
     print("Workout logged successfully!")
 
 # Function to get current daily and weekly tracking data
+
 def get_daily_tracking():
     print("Retrieving daily tracking data")
     return daily_tracking_sheet.get_all_records()

@@ -147,17 +147,24 @@ def log_meal_route():
 @auth.login_required
 def log_workout_route():
     try:
-        required_params = ['date', 'workout_type', 'exercise_name']
+        required_params = ['date', 'workout_type', 'exercise_name', 'sets_reps_weight', 'duration', 'calories_burned', 'workout_notes']
         missing = [p for p in required_params if not request.args.get(p)]
         if missing:
             return jsonify({'status': 'error', 'message': f'Missing parameters: {", ".join(missing)}'}), 400
 
-        log_workout(**request.args)
+        log_workout(
+            request.args.get('date'),
+            request.args.get('workout_type'),
+            request.args.get('exercise_name'),
+            request.args.get('sets_reps_weight'),
+            request.args.get('duration'),
+            request.args.get('calories_burned'),
+            request.args.get('workout_notes')
+        )
         return jsonify({'status': 'success', 'message': 'Workout logged successfully'})
     except Exception as e:
         logger.error(f"Workout logging error: {str(e)}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
-
 @app.route('/daily-tracking', methods=['GET'])
 @auth.login_required
 def get_daily_tracking_route():
